@@ -54,3 +54,51 @@ pressure %>% ggvis(~temperature, ~pressure, size:=100) %>% layer_points()
 pressure %>% ggvis(~temperature, ~pressure, fill := "red") %>% layer_points()
 
 #Exercise 5
+# Change the second line of code to set the fills using pressure$black
+pressure$black <- c("black", "grey80", "grey50", 
+                    "navyblue", "blue", "springgreen4", 
+                    "green4", "green", "yellowgreen", 
+                    "yellow", "orange", "darkorange", 
+                    "orangered", "red", "magenta", "violet", 
+                    "purple", "purple4", "slateblue")
+pressure %>% 
+    ggvis(~temperature, ~pressure, 
+          fill := ~black) %>% 
+    layer_points()
+
+# Plot the faithful data as described in the second instruction
+faithful %>% ggvis(~waiting, ~eruptions, size=~eruptions, opacity:=0.5, fill:="blue", stroke:="black") %>% layer_points()
+
+# Plot the faithful data as described in the third instruction
+faithful %>% ggvis(~waiting, ~eruptions, fillOpacity=~eruptions, size:=100, fill:="red", stroke:="red", shape:="cross") %>% layer_points()
+
+#Exercise 6
+# Change the code below to use the lines mark
+pressure %>% ggvis(~temperature, ~pressure) %>% layer_lines()
+
+# Set the properties described in the second instruction in the graph below
+pressure %>% ggvis(~temperature, ~pressure, strokeWidth:=2) %>% layer_lines(strokeDash:=6, stroke:="red")
+
+#Exercise 7
+# change the third line of code to plot a map of Texas
+library("maps")
+texas <- ggplot2::map_data("state", region = "texas")
+texas %>% ggvis(~long, ~lat) %>% layer_paths()
+
+# Same plot, but set the fill property of the texas map to dark orange
+texas %>% ggvis(~long, ~lat) %>% layer_paths(fill:="darkorange")
+
+#Exercise 8
+# Compute the x and y coordinates for a loess smooth line that predicts mpg with the wt
+mtcars %>% compute_smooth(mpg ~ wt)
+
+#Exercise 9
+# Use 'ggvis()' and 'layer_lines()' to plot the results of compute smooth
+mtcars %>% compute_smooth(mpg ~ wt) %>% ggvis(~pred_, ~resp_) %>% layer_lines()
+
+# Recreate the graph you coded above with 'ggvis()' and 'layer_smooths()' 
+mtcars %>% ggvis(~wt, ~mpg) %>% layer_smooths()
+
+# Extend the code for the second plot and add 'layer_points()' to the graph
+mtcars %>% ggvis(~wt, ~mpg) %>% layer_smooths() %>% layer_points()
+
